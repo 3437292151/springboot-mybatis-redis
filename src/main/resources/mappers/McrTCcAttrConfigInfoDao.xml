@@ -1,0 +1,587 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yu.repository.McrTCcAttrConfigInfoDao" >
+    <cache type="com.yu.config.cache.MybatisRedisCache">
+        <property name="eviction" value="LRU" />
+        <property name="flushInterval" value="6000000" />
+        <property name="size" value="1024" />
+        <property name="readOnly" value="false" />
+    </cache>
+  <resultMap id="BaseResultMap" type="com.yu.domain.McrTCcAttrConfigInfo" >
+      <id column="id" property="id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <result column="lib_id" property="libId" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <result column="discipline_id" property="disciplineId" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <result column="attribute_id" property="attributeId" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <result column="info_status" property="infoStatus" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <result column="sort_number" property="sortNumber" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <result column="def_user" property="defUser" jdbcType="VARCHAR" />
+      <result column="def_user_name" property="defUserName" jdbcType="VARCHAR" />
+      <result column="def_dt" property="defDt" jdbcType="TIMESTAMP" />
+      <result column="upd_user" property="updUser" jdbcType="VARCHAR" />
+      <result column="upd_user_name" property="updUserName" jdbcType="VARCHAR" />
+      <result column="upd_dt" property="updDt" jdbcType="TIMESTAMP" />
+      <result column="s_dept" property="sdept" jdbcType="VARCHAR" />
+      <result column="s_cmpy" property="scmpy" jdbcType="VARCHAR" />
+  </resultMap>
+
+    <resultMap id="FullResultMap" type="com.yu.domain.McrTCcAttrConfigInfo" >
+        <id column="id" property="id" jdbcType="VARCHAR" javaType="java.lang.String" />
+        <result column="lib_id" property="libId" jdbcType="VARCHAR" javaType="java.lang.String" />
+        <result column="discipline_id" property="disciplineId" jdbcType="VARCHAR" javaType="java.lang.String" />
+        <result column="attribute_id" property="attributeId" jdbcType="VARCHAR" javaType="java.lang.String" />
+        <result column="info_status" property="infoStatus" jdbcType="INTEGER" javaType="java.lang.Integer" />
+        <result column="sort_number" property="sortNumber" jdbcType="INTEGER" javaType="java.lang.Integer" />
+        <result column="def_user" property="defUser" jdbcType="VARCHAR" />
+        <result column="def_user_name" property="defUserName" jdbcType="VARCHAR" />
+        <result column="def_dt" property="defDt" jdbcType="TIMESTAMP" />
+        <result column="upd_user" property="updUser" jdbcType="VARCHAR" />
+        <result column="upd_user_name" property="updUserName" jdbcType="VARCHAR" />
+        <result column="upd_dt" property="updDt" jdbcType="TIMESTAMP" />
+        <result column="s_dept" property="sdept" jdbcType="VARCHAR" />
+        <result column="s_cmpy" property="scmpy" jdbcType="VARCHAR" />
+        <collection property="mcrTCcAttrConfigMxList" column="id" select="com.yu.repository.McrTCcAttrConfigMxDao.selectByCcInfoId"/>
+    </resultMap>
+
+    <resultMap id="OneToManyResultMap" type="com.yu.domain.McrTCcAttrConfigInfo" >
+        <id column="id" property="id" jdbcType="VARCHAR" javaType="java.lang.String" />
+        <result column="lib_id" property="libId" jdbcType="VARCHAR" javaType="java.lang.String" />
+        <result column="discipline_id" property="disciplineId" jdbcType="VARCHAR" javaType="java.lang.String" />
+        <result column="attribute_id" property="attributeId" jdbcType="VARCHAR" javaType="java.lang.String" />
+        <result column="info_status" property="infoStatus" jdbcType="INTEGER" javaType="java.lang.Integer" />
+        <result column="sort_number" property="sortNumber" jdbcType="INTEGER" javaType="java.lang.Integer" />
+        <result column="def_user" property="defUser" jdbcType="VARCHAR" />
+        <result column="def_user_name" property="defUserName" jdbcType="VARCHAR" />
+        <result column="def_dt" property="defDt" jdbcType="TIMESTAMP" />
+        <result column="upd_user" property="updUser" jdbcType="VARCHAR" />
+        <result column="upd_user_name" property="updUserName" jdbcType="VARCHAR" />
+        <result column="upd_dt" property="updDt" jdbcType="TIMESTAMP" />
+        <result column="s_dept" property="sdept" jdbcType="VARCHAR" />
+        <result column="s_cmpy" property="scmpy" jdbcType="VARCHAR" />
+        <collection property="mcrTCcAttrConfigMxList" column="id" select="com.yu.repository.McrTCcAttrConfigMxDao.selectByCcInfoId"/>
+    </resultMap>
+
+    <resultMap id="OneToGroupManyResultMap" type="com.yu.domain.McrTCcAttrConfigInfo" >
+        <id column="id" property="id" jdbcType="VARCHAR" javaType="java.lang.String" />
+        <result column="lib_id" property="libId" jdbcType="VARCHAR" javaType="java.lang.String" />
+        <result column="discipline_id" property="disciplineId" jdbcType="VARCHAR" javaType="java.lang.String" />
+        <result column="attribute_id" property="attributeId" jdbcType="VARCHAR" javaType="java.lang.String" />
+        <result column="info_status" property="infoStatus" jdbcType="INTEGER" javaType="java.lang.Integer" />
+        <result column="sort_number" property="sortNumber" jdbcType="INTEGER" javaType="java.lang.Integer" />
+        <result column="def_user" property="defUser" jdbcType="VARCHAR" />
+        <result column="def_user_name" property="defUserName" jdbcType="VARCHAR" />
+        <result column="def_dt" property="defDt" jdbcType="TIMESTAMP" />
+        <result column="upd_user" property="updUser" jdbcType="VARCHAR" />
+        <result column="upd_user_name" property="updUserName" jdbcType="VARCHAR" />
+        <result column="upd_dt" property="updDt" jdbcType="TIMESTAMP" />
+        <result column="s_dept" property="sdept" jdbcType="VARCHAR" />
+        <result column="s_cmpy" property="scmpy" jdbcType="VARCHAR" />
+    </resultMap>
+
+  <sql id="Base_Column_List" >
+    info.id, info.lib_id, info.discipline_id, info.attribute_id, info_status, sort_number, info.def_user, info.def_user_name,
+    info.def_dt, info.upd_user, info.upd_user_name, info.upd_dt, info.s_dept, info.s_cmpy
+  </sql>
+    <sql id="Full_Column_List" >
+        configInfo.id id, configInfo.lib_id lidId, configInfo.discipline_id disciplineId, configInfo.attribute_id attributeId, info_status infoStatus, sort_number sortNumber, configInfo.def_user defUser, configInfo.def_user_name defUserName,
+        configInfo.def_dt defDt, configInfo.upd_user updUser, configInfo.upd_user_name updUserName, configInfo.upd_dt updDt, configInfo.s_dept sdept, configInfo.s_cmpy scmpy
+    </sql>
+    <sql id="orderBy">
+        order By sort_number desc
+    </sql>
+    <sql id="orderByASC">
+        order By sort_number
+    </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from mcr_t_cc_attr_config_info info
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+    <select id="selectGroupManyById" resultMap="OneToGroupManyResultMap" parameterType="java.lang.String" >
+        select
+        <include refid="Base_Column_List" />
+        from mcr_t_cc_attr_config_info info
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+    <select id="selectFullByPrimaryKey" resultMap="FullResultMap" parameterType="java.lang.String" >
+        select
+        <include refid="Base_Column_List" />
+        from mcr_t_cc_attr_config_info info
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+    <select id="selectFullByCriteriaAndKeyWords" resultMap="FullResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from mcr_t_cc_attr_config_info info
+        <if test="keyWords != null">
+            left join mcr_t_cc_attr_config_mx mx
+            on mx.info_id = info.id and mx.config_category = 'APV'
+        </if>
+        <if test="groupId != null">
+            left join mcr_t_cc_group_value mtcgv
+            on mtcgv.info_id = info.id
+        </if>
+        <where>
+            <if test="id != null" >
+                id = #{id,jdbcType=VARCHAR}
+            </if>
+            <if test="libId != null" >
+                and lib_id = #{libId,jdbcType=BIGINT}
+            </if>
+            <if test="disciplineId != null" >
+                and discipline_id = #{disciplineId,jdbcType=VARCHAR}
+            </if>
+            <if test="attributeId != null" >
+                and info.attribute_id = #{attributeId,jdbcType=VARCHAR}
+            </if>
+            <if test="infoStatus != null" >
+                and info_status = #{infoStatus,jdbcType=INTEGER}
+            </if>
+            <if test="sortNumber != null" >
+                and sort_number = #{sortNumber,jdbcType=INTEGER}
+            </if>
+            <if test="defUser != null" >
+                and def_user = #{defUser,jdbcType=VARCHAR}
+            </if>
+            <if test="defUserName != null" >
+                and def_user_name = #{defUserName,jdbcType=VARCHAR}
+            </if>
+            <if test="updUser != null" >
+                and upd_user = #{updUser,jdbcType=VARCHAR}
+            </if>
+            <if test="updUserName != null" >
+                and upd_user_name = #{updUserName,jdbcType=VARCHAR}
+            </if>
+            <if test="sdept != null" >
+                and s_dept = #{sdept,jdbcType=VARCHAR}
+            </if>
+            <if test="scmpy != null" >
+                and s_cmpy = #{scmpy,jdbcType=VARCHAR}
+            </if>
+            <if test="defDt != null ">
+                and def_dt = #{defDt,jdbcType=datetime}
+            </if>
+            <if test="updDt != null ">
+                and upd_dt = #{updDt,jdbcType=datetime}
+            </if>
+            <if test="groupId != null">
+                and mtcgv.group_id = #{groupId, jdbcType=VARCHAR}
+            </if>
+            <if test="keyWords != null">
+                and mx.config_value like concat('%',#{keyWords,jdbcType=VARCHAR},'%')
+            </if>
+
+        </where>
+        <include refid="orderByASC"/>
+    </select>
+    <select id="selectByCriteria" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from mcr_t_cc_attr_config_info info
+        <where>
+            <if test="id != null" >
+                id = #{id,jdbcType=VARCHAR}
+            </if>
+            <if test="libId != null" >
+                and lib_id = #{libId,jdbcType=BIGINT}
+            </if>
+            <if test="disciplineId != null" >
+                and discipline_id = #{disciplineId,jdbcType=VARCHAR}
+            </if>
+            <if test="attributeId != null" >
+                and info.attribute_id = #{attributeId,jdbcType=VARCHAR}
+            </if>
+            <if test="infoStatus != null" >
+                and info_status = #{infoStatus,jdbcType=INTEGER}
+            </if>
+            <if test="sortNumber != null" >
+                and sort_number = #{sortNumber,jdbcType=INTEGER}
+            </if>
+            <if test="defUser != null" >
+                and def_user = #{defUser,jdbcType=VARCHAR}
+            </if>
+            <if test="defUserName != null" >
+                and def_user_name like concat('%',#{defUserName,jdbcType=BIGINT},'%')
+            </if>
+            <if test="updUser != null" >
+                and upd_user = #{updUser,jdbcType=VARCHAR}
+            </if>
+            <if test="updUserName != null" >
+                and upd_user_name like concat('%',#{updUserName,jdbcType=BIGINT},'%')
+            </if>
+            <if test="sdept != null" >
+                and s_dept = #{sdept,jdbcType=VARCHAR}
+            </if>
+            <if test="scmpy != null" >
+                and s_cmpy = #{scmpy,jdbcType=VARCHAR}
+            </if>
+            <if test="defDtBegin != null">
+                and def_dt > #{defDtBegin}
+            </if>
+            <if test="defDtEnd != null ">
+                and #{defDtEnd} > def_dt
+            </if>
+            <if test="updDtBegin != null">
+                and upd_dt > #{updDtBegin}
+            </if>
+            <if test="updDtEnd != null ">
+                and #{updDtEnd} > upd_dt
+            </if>
+            <if test="id == null and mxList != null and mxList.size > 0">
+                and id in
+                <trim prefix=" (" suffix=")">
+                    select info_id from mcr_t_cc_attr_config_mx
+                    <where>
+                        <foreach collection="mxList" item="item" index="no" open="(" separator=" )or( " close=") ">
+                            <if test="item.configValue != null">
+                                <trim suffix=" " prefixOverrides="and | or">
+                                    <if test="item.ccConfigId != null">
+                                        cc_config_id = #{item.ccConfigId, jdbcType=VARCHAR}
+                                    </if>
+                                    <if test="item.configValue != null">
+                                        and config_value like concat('%',#{item.configValue,jdbcType=VARCHAR},'%')
+                                    </if>
+                                </trim>
+                            </if>
+                        </foreach>
+                    </where>
+                    GROUP BY info_id
+                    HAVING COUNT(info_id) >= ${mxList.size}
+                </trim>
+            </if>
+        </where>
+        <include refid="orderByASC"/>
+    </select>
+    <select id="selectFullByCriteriaLike" resultType="java.util.Map">
+        select
+        <include refid="Full_Column_List" />
+        <if test="mxList != null and mxList.size>0">
+            <foreach collection="mxList" item="item" index="no" open="," separator=" , " >
+                <if test="item.ccConfigId  != null">
+                    `${item.ccConfigId}`
+                </if>
+            </foreach>
+        </if>
+        from
+        (select
+        <include refid="Base_Column_List" />
+        <if test="mxList != null and mxList.size>0">
+            <foreach collection="mxList" item="item" index="no" open="," separator=" , " >
+                <if test="item.ccConfigId  != null">
+                  MAX(CASE mx.cc_config_id WHEN #{item.ccConfigId, jdbcType=VARCHAR} THEN mx.config_value ELSE null END ) `${item.ccConfigId}`
+                </if>
+            </foreach>
+        </if>
+        from mcr_t_cc_attr_config_info info
+        left join mcr_t_cc_attr_config_mx mx on info.id = mx.info_id
+        <where>
+            <if test="id != null" >
+                info.id = #{id,jdbcType=VARCHAR}
+            </if>
+            <if test="libId != null" >
+                and info.lib_id = #{libId,jdbcType=BIGINT}
+            </if>
+            <if test="disciplineId != null" >
+                and info.discipline_id = #{disciplineId,jdbcType=VARCHAR}
+            </if>
+            <if test="attributeId != null" >
+                and info.attribute_id = #{attributeId,jdbcType=VARCHAR}
+            </if>
+            <if test="infoStatus != null" >
+                and info.info_status = #{infoStatus,jdbcType=INTEGER}
+            </if>
+            <if test="sortNumber != null" >
+                and info.sort_number = #{sortNumber,jdbcType=INTEGER}
+            </if>
+            <if test="defUser != null" >
+                and info.def_user = #{defUser,jdbcType=VARCHAR}
+            </if>
+            <if test="defUserName != null" >
+                and info.def_user_name like concat('%',#{defUserName,jdbcType=BIGINT},'%')
+            </if>
+            <if test="updUser != null" >
+                and info.upd_user = #{updUser,jdbcType=VARCHAR}
+            </if>
+            <if test="updUserName != null" >
+                and info.upd_user_name like concat('%',#{updUserName,jdbcType=BIGINT},'%')
+            </if>
+            <if test="sdept != null" >
+                and info.s_dept = #{sdept,jdbcType=VARCHAR}
+            </if>
+            <if test="scmpy != null" >
+                and info.s_cmpy = #{scmpy,jdbcType=VARCHAR}
+            </if>
+            <if test="defDtBegin != null">
+                and info.def_dt >= #{defDtBegin}
+            </if>
+            <if test="defDtEnd != null ">
+                and #{defDtEnd} >= info.def_dt
+            </if>
+            <if test="updDtBegin != null">
+                and info.upd_dt >= #{updDtBegin}
+            </if>
+            <if test="updDtEnd != null ">
+                and #{updDtEnd} >= info.upd_dt
+            </if>
+            </where>
+        group by info.id) configInfo
+        <where>
+            <if test="mxList != null and mxList.size > 0">
+                <foreach collection="mxList" item="item" index="no">
+                    <if test="item.configValue != null">
+                        <if test="item.ccConfigId != null">
+                          and configInfo.`${item.ccConfigId}` like concat('%',#{item.configValue,jdbcType=VARCHAR},'%')
+                        </if>
+                    </if>
+                </foreach>
+            </if>
+        </where>
+        <include refid="orderBy"/>
+    </select>
+    <select id="selectByIdArray" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from mcr_t_cc_attr_config_info info
+        where
+        <choose>
+            <when test="list != null and list.size > 0">
+                id in
+                <foreach collection="list" item="id" index="no" open="(" separator=" , " close=")">
+                    #{id,jdbcType=VARCHAR}
+                </foreach>
+            </when>
+            <otherwise>
+                1 = 2
+            </otherwise>
+        </choose>
+    </select>
+    <select id="selectByCriteriaAndKeyWords" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from mcr_t_cc_attr_config_info info
+        <if test="keyWords != null">
+            left join mcr_t_cc_attr_config_mx mx
+            on mx.info_id = info.id and mx.config_category = 'APV'
+        </if>
+        <if test="groupId != null">
+            left join mcr_t_cc_group_value mtcgv
+            on mtcgv.info_id = info.id
+        </if>
+        <where>
+            <if test="id != null" >
+                id = #{id,jdbcType=VARCHAR}
+            </if>
+            <if test="libId != null" >
+                and lib_id = #{libId,jdbcType=BIGINT}
+            </if>
+            <if test="disciplineId != null" >
+                and discipline_id = #{disciplineId,jdbcType=VARCHAR}
+            </if>
+            <if test="attributeId != null" >
+                and info.attribute_id = #{attributeId,jdbcType=VARCHAR}
+            </if>
+            <if test="infoStatus != null" >
+                and info_status = #{infoStatus,jdbcType=INTEGER}
+            </if>
+            <if test="sortNumber != null" >
+                and sort_number = #{sortNumber,jdbcType=INTEGER}
+            </if>
+            <if test="defUser != null" >
+                and def_user = #{defUser,jdbcType=VARCHAR}
+            </if>
+            <if test="defUserName != null" >
+                and def_user_name = #{defUserName,jdbcType=VARCHAR}
+            </if>
+            <if test="updUser != null" >
+                and upd_user = #{updUser,jdbcType=VARCHAR}
+            </if>
+            <if test="updUserName != null" >
+                and upd_user_name = #{updUserName,jdbcType=VARCHAR}
+            </if>
+            <if test="sdept != null" >
+                and s_dept = #{sdept,jdbcType=VARCHAR}
+            </if>
+            <if test="scmpy != null" >
+                and s_cmpy = #{scmpy,jdbcType=VARCHAR}
+            </if>
+            <if test="defDt != null ">
+                and def_dt = #{defDt,jdbcType=datetime}
+            </if>
+            <if test="updDt != null ">
+                and upd_dt = #{updDt,jdbcType=datetime}
+            </if>
+            <if test="groupId != null">
+                and mtcgv.group_id = #{groupId, jdbcType=VARCHAR}
+            </if>
+            <if test="keyWords != null">
+                and mx.config_value like concat('%',#{keyWords,jdbcType=VARCHAR},'%')
+            </if>
+        </where>
+        <include refid="orderByASC"/>
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from mcr_t_cc_attr_config_info
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+    <delete id="batchDelete">
+        delete from mcr_t_cc_attr_config_info
+        <where>
+            <choose>
+                <when test="list !=null and list.size>0">
+                    id in
+                    <foreach collection="list" item="id" index="no" open="(" separator="," close=")">
+                        #{id}
+                    </foreach>
+                </when>
+                <otherwise>
+                    1=2
+                </otherwise>
+            </choose>
+        </where>
+    </delete>
+    <insert id="insert" parameterType="com.yu.domain.McrTCcAttrConfigInfo" >
+      <selectKey keyProperty="id" resultType="String" order="BEFORE">
+          SELECT uuid()from dual
+      </selectKey>
+    insert into mcr_t_cc_attr_config_info (id, lib_id, discipline_id,
+      attribute_id, info_status, sort_number,
+      def_user, def_user_name, def_dt,
+      upd_user, upd_user_name, upd_dt,
+      s_dept, s_cmpy)
+    values (#{id,jdbcType=VARCHAR}, #{libId,jdbcType=VARCHAR}, #{disciplineId,jdbcType=VARCHAR},
+      #{attributeId,jdbcType=VARCHAR}, #{infoStatus,jdbcType=INTEGER}, #{sortNumber,jdbcType=INTEGER},
+      #{defUser,jdbcType=VARCHAR}, #{defUserName,jdbcType=VARCHAR}, now(),
+      #{updUser,jdbcType=VARCHAR}, #{updUserName,jdbcType=VARCHAR}, now(),
+      #{sdept,jdbcType=VARCHAR}, #{scmpy,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yu.domain.McrTCcAttrConfigInfo" >
+    insert into mcr_t_cc_attr_config_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+        id,
+      <if test="libId != null" >
+        lib_id,
+      </if>
+      <if test="disciplineId != null" >
+        discipline_id,
+      </if>
+      <if test="attributeId != null" >
+        attribute_id,
+      </if>
+      <if test="infoStatus != null" >
+        info_status,
+      </if>
+      <if test="sortNumber != null" >
+        sort_number,
+      </if>
+      <if test="defUser != null" >
+        def_user,
+      </if>
+      <if test="defUserName != null" >
+        def_user_name,
+      </if>
+        def_dt,
+      <if test="updUser != null" >
+        upd_user,
+      </if>
+      <if test="updUserName != null" >
+        upd_user_name,
+      </if>
+        upd_dt,
+      <if test="sdept != null" >
+        s_dept,
+      </if>
+      <if test="scmpy != null" >
+        s_cmpy,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="id != null">
+            #{id,jdbcType=VARCHAR},
+        </if>
+      <if test="libId != null" >
+        #{libId,jdbcType=VARCHAR},
+      </if>
+      <if test="disciplineId != null" >
+        #{disciplineId,jdbcType=VARCHAR},
+      </if>
+      <if test="attributeId != null" >
+        #{attributeId,jdbcType=VARCHAR},
+      </if>
+      <if test="infoStatus != null" >
+        #{infoStatus,jdbcType=INTEGER},
+      </if>
+      <if test="sortNumber != null" >
+        #{sortNumber,jdbcType=INTEGER},
+      </if>
+      <if test="defUser != null" >
+        #{defUser,jdbcType=VARCHAR},
+      </if>
+      <if test="defUserName != null" >
+        #{defUserName,jdbcType=VARCHAR},
+      </if>
+      now(),
+      <if test="updUser != null" >
+        #{updUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updUserName != null" >
+        #{updUserName,jdbcType=VARCHAR},
+      </if>
+      now(),
+      <if test="sdept != null" >
+        #{sdept,jdbcType=VARCHAR},
+      </if>
+      <if test="scmpy != null" >
+        #{scmpy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yu.domain.McrTCcAttrConfigInfo" >
+    update mcr_t_cc_attr_config_info
+    <set >
+      <if test="libId != null" >
+        lib_id = #{libId,jdbcType=VARCHAR},
+      </if>
+      <if test="disciplineId != null" >
+        discipline_id = #{disciplineId,jdbcType=VARCHAR},
+      </if>
+      <if test="attributeId != null" >
+        attribute_id = #{attributeId,jdbcType=VARCHAR},
+      </if>
+      <if test="infoStatus != null" >
+        info_status = #{infoStatus,jdbcType=INTEGER},
+      </if>
+      <if test="sortNumber != null" >
+        sort_number = #{sortNumber,jdbcType=INTEGER},
+      </if>
+      <if test="updUser != null" >
+        upd_user = #{updUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updUserName != null" >
+        upd_user_name = #{updUserName,jdbcType=VARCHAR},
+      </if>
+        upd_dt = now(),
+      <if test="sdept != null" >
+        s_dept = #{sdept,jdbcType=VARCHAR},
+      </if>
+      <if test="scmpy != null" >
+        s_cmpy = #{scmpy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yu.domain.McrTCcAttrConfigInfo" >
+    update mcr_t_cc_attr_config_info
+    set lib_id = #{libId,jdbcType=VARCHAR},
+      discipline_id = #{disciplineId,jdbcType=VARCHAR},
+      attribute_id = #{attributeId,jdbcType=VARCHAR},
+      info_status = #{infoStatus,jdbcType=INTEGER},
+      sort_number = #{sortNumber,jdbcType=INTEGER},
+      upd_user = #{updUser,jdbcType=VARCHAR},
+      upd_user_name = #{updUserName,jdbcType=VARCHAR},
+      upd_dt = now(),
+      s_dept = #{sdept,jdbcType=VARCHAR},
+      s_cmpy = #{scmpy,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
