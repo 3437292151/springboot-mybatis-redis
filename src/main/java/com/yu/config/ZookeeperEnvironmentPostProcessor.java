@@ -25,16 +25,12 @@ public class ZookeeperEnvironmentPostProcessor implements EnvironmentPostProcess
     public void postProcessEnvironment(ConfigurableEnvironment configurableEnvironment, SpringApplication springApplication) {
         MutablePropertySources propertySources = configurableEnvironment.getPropertySources();
         PropertySource<?> curator = propertySources.get("applicationConfig: [classpath:/application.yml]");
-        Integer retryCount = Integer.class.cast(curator.getProperty("curator.retryCount"));
-        Integer elapsedTimeMs = Integer.class.cast(curator.getProperty("curator.elapsedTimeMs"));
-        String connectString = String.class.cast(curator.getProperty("curator.connectString"));
-        Integer sessionTimeoutMs = Integer.class.cast(curator.getProperty("curator.sessionTimeoutMs"));
-        Integer connectionTimeoutMs = Integer.class.cast(curator.getProperty("curator.connectionTimeoutMs"));
         CuratorFramework curatorFramework = CuratorFrameworkFactory.newClient(
-                connectString,
-                sessionTimeoutMs,
-                connectionTimeoutMs,
-                new RetryNTimes(retryCount, elapsedTimeMs));
+                String.class.cast(curator.getProperty("curator.connectString")),
+                Integer.class.cast(curator.getProperty("curator.sessionTimeoutMs")),
+                Integer.class.cast(curator.getProperty("curator.connectionTimeoutMs")),
+                new RetryNTimes(Integer.class.cast(curator.getProperty("curator.retryCount")),
+                        Integer.class.cast(curator.getProperty("curator.elapsedTimeMs"))));
         curatorFramework.start();
         Map<String, Object> map = new HashMap<>();
         try {curatorFramework.getChildren().forPath("/congfigtest");
