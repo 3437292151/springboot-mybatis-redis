@@ -4,22 +4,23 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.yu.domain.McrTCcAttrConfigInfo;
+import com.yu.domain.McrTCcAttrConfigMx;
 import com.yu.repository.McrTCcAttrConfigInfoDao;
+import com.yu.repository.McrTCcAttrConfigMxDao;
 import com.yu.service.McrTCcAttrConfigInfoService;
+import com.yu.service.mapper.McrTCcAttrConfigInfoToMapMapper;
 import com.yu.util.PageableHumpToLineUtil;
-import com.yu.util.SpringBeanUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.beans.BeanMap;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @Auther: yuchanglong
@@ -33,18 +34,18 @@ public class McrTCcAttrConfigInfoServiceImpl implements McrTCcAttrConfigInfoServ
     @Autowired
     private McrTCcAttrConfigInfoDao mcrTCcAttrConfigInfoDao;
 
-    private RedisTemplate<String, Object> redisTemplate ;
+    @Autowired
+    private McrTCcAttrConfigMxDao mcrTCcAttrConfigMxDao;
+
+    @Autowired
+    private McrTCcAttrConfigInfoToMapMapper mcrTCcAttrConfigInfoToMapMapper;
 
     @Override
     @Transactional
     public Integer insert(McrTCcAttrConfigInfo mcrTCcAttrConfigInfo) {
         log.info("mcrTCcAttrConfigInfo: {}", mcrTCcAttrConfigInfo);
         mcrTCcAttrConfigInfo.setUUID();
-        if (redisTemplate == null){
-            redisTemplate = (RedisTemplate<String, Object>) SpringBeanUtil.getBean("redisTemplate");
-        }
-        Set<String> keys = redisTemplate.keys("*:");
-        log.info("keys:{}", keys);
+
         int result = mcrTCcAttrConfigInfoDao.insertSelective(mcrTCcAttrConfigInfo);
         return result;
     }
@@ -77,6 +78,32 @@ public class McrTCcAttrConfigInfoServiceImpl implements McrTCcAttrConfigInfoServ
     @Override
     public Integer update(McrTCcAttrConfigInfo mcrTCcAttrConfigInfo) {
         int result = mcrTCcAttrConfigInfoDao.updateByPrimaryKeySelective(mcrTCcAttrConfigInfo);
+        return result;
+    }
+
+    /**
+     * @Author yuchanglong
+     * @Date 2018-12-5
+     * @Description 条件查询（包括关键字查询）
+     * @Param map（包括keyWords，属性id：attributeId）
+     * @return java.util.List<java.util.Map<java.lang.String,java.lang.Object>>
+     **/
+    @Override
+    public List<Map<String, Object>> selectByCriteria(Map<String, Object> maps) {
+        log.info(" param: {};", maps);
+
+        List<McrTCcAttrConfigInfo> mcrTCcAttrConfigInfos = mcrTCcAttrConfigInfoDao.selectByCriteriaAndKeyWords(maps);
+        Object attributeId = maps.get("attributeId");
+        maps = new HashMap<>();
+        maps.put("attributeId", attributeId);
+        List<McrTCcAttrConfigMx> mcrTCcAttrConfigMxList = mcrTCcAttrConfigMxDao.selectByCriteriaAndKeyWords(maps);
+        Map<String, List<McrTCcAttrConfigMx>> mcrTCcAttrConfigMxMap = mcrTCcAttrConfigMxList.stream().collect(Collectors.groupingBy(McrTCcAttrConfigMx::getInfoId));
+        mcrTCcAttrConfigInfos.forEach(e -> {
+            e.setMcrTCcAttrConfigMxList(mcrTCcAttrConfigMxMap.get(e.getId()));
+        });
+
+
+        List<Map<String,Object>> result = mcrTCcAttrConfigInfoToMapMapper.toDto(mcrTCcAttrConfigInfos);
         return result;
     }
 }
